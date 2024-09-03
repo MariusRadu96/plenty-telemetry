@@ -10,7 +10,7 @@ import (
 
 type cliDriver struct{}
 
-// Create a new CLIDriver instance with the specified filename.
+// Create a new cliDriver instance with the specified filename.
 func NewCLIDriver() *cliDriver {
 	return &cliDriver{}
 }

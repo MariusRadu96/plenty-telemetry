@@ -12,7 +12,7 @@ type httpDriver struct {
 	endpoint string
 }
 
-// Create a new FileDriver instance with the specified filename.
+// Create a new httpDriver instance with the specified filename.
 func NewHTTPDriver(attributes map[string]string) (*httpDriver, error) {
 	endpoint, ok := attributes["endpoint"]
 
@@ -23,7 +23,7 @@ func NewHTTPDriver(attributes map[string]string) (*httpDriver, error) {
 	return &httpDriver{endpoint: endpoint}, nil
 }
 
-// Make http entru for the log.
+// Make an http request for the log.
 func (d *httpDriver) Log(entry domain.LogEntry) error {
 	body, err := json.Marshal(entry)
 	if err != nil {

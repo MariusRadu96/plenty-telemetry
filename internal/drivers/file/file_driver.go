@@ -13,7 +13,7 @@ type fileDriver struct {
 	file *os.File
 }
 
-// Create a new FileDriver instance with the specified filename.
+// Create a new fileDriver instance with the specified filename.
 func NewFileDriver(attributes map[string]string) (*fileDriver, error) {
 	filename, ok := attributes["file_path"]
 

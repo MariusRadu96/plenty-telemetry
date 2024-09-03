@@ -40,7 +40,7 @@ func LogLevelIntToStr(level LogLevel) string {
 	return logLevelIntToStr[level]
 }
 
-// Converts String LogLevel to LogLevel type
+// Converts string LogLevel to LogLevel type
 func LogLevelStrToInt(level string) (LogLevel, error) {
 	levelInt, ok := logLevelStrToInt[level]
 	if !ok {
