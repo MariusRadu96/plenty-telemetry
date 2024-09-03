@@ -1,0 +1,5 @@
+log_level: info
+drivers:
+   - type: cli 
+   - type: file
+     file_path: ./logs.log

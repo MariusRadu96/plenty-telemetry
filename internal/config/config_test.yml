@@ -1,0 +1,5 @@
+log_level: warning
+drivers:
+   - type: cli 
+   - type: file
+     file_path: ./logs_test.log
