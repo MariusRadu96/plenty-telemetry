@@ -12,7 +12,7 @@ import (
 func Test_NewFileDriver(t *testing.T) {
 
 	type args struct {
-		path string
+		attributes map[string]string
 	}
 
 	tests := []struct {
@@ -25,7 +25,9 @@ func Test_NewFileDriver(t *testing.T) {
 			name:    "Error file",
 			wantErr: true,
 			args: args{
-				path: "./invalid_path/logs_test.log",
+				attributes: map[string]string{
+					"file_path": "./invalid_path/logs_test.log",
+				},
 			},
 		},
 
@@ -33,13 +35,15 @@ func Test_NewFileDriver(t *testing.T) {
 			name:    "Success",
 			wantErr: false,
 			args: args{
-				path: "./logs_test.log",
+				attributes: map[string]string{
+					"file_path": "./logs_test.log",
+				},
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := NewFileDriver(tt.args.path)
+			_, err := NewFileDriver(tt.args.attributes)
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("NewCLIDriver() error = %v, wantErr %v", err, tt.wantErr)
@@ -81,7 +85,7 @@ func Test_NewFileDriver_Log(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			driver, err := NewFileDriver("logs_test.log")
+			driver, err := NewFileDriver(map[string]string{"file_path": "logs_test.log"})
 			assert.NoError(t, err)
 			err = driver.Log(tt.args.entry)
 			if (err != nil) != tt.wantErr {

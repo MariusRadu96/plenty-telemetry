@@ -9,22 +9,28 @@ import (
 	"time"
 )
 
-type FileDriver struct {
+type fileDriver struct {
 	file *os.File
 }
 
 // Create a new FileDriver instance with the specified filename.
-func NewFileDriver(filename string) (*FileDriver, error) {
+func NewFileDriver(attributes map[string]string) (*fileDriver, error) {
+	filename, ok := attributes["file_path"]
+
+	if !ok {
+		return nil, fmt.Errorf("invalid attributes for file driver")
+	}
+
 	file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		return nil, err
 	}
 
-	return &FileDriver{file: file}, nil
+	return &fileDriver{file: file}, nil
 }
 
 // Log the entry to the file.
-func (d *FileDriver) Log(entry domain.LogEntry) error {
+func (d *fileDriver) Log(entry domain.LogEntry) error {
 	attributes, err := json.Marshal(entry.Attributes)
 	if err != nil {
 		return err

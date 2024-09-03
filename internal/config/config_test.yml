@@ -1,5 +1,9 @@
 log_level: warning
 drivers:
-   - type: cli 
-   - type: file
-     file_path: ./logs_test.log
+  - type: cli 
+  - type: file
+    attributes:
+      file_path: ./logs_test.log
+  - type: http
+    attributes:
+      endpoint: http://example.com/log 

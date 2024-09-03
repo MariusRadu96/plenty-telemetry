@@ -8,15 +8,15 @@ import (
 	"time"
 )
 
-type CLIDriver struct{}
+type cliDriver struct{}
 
 // Create a new CLIDriver instance with the specified filename.
-func NewCLIDriver() *CLIDriver {
-	return &CLIDriver{}
+func NewCLIDriver() *cliDriver {
+	return &cliDriver{}
 }
 
 // Log the entry to the command line.
-func (d *CLIDriver) Log(entry domain.LogEntry) error {
+func (d *cliDriver) Log(entry domain.LogEntry) error {
 	attributes, err := json.Marshal(entry.Attributes)
 	if err != nil {
 		return err

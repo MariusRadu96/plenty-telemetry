@@ -9,11 +9,13 @@ import (
 )
 
 type Config struct {
-	LogLevel string `yaml:"log_level"`
-	Drivers  []struct {
-		Type     string `yaml:"type"`
-		FilePath string `yaml:"file_path,omitempty"`
-	} `yaml:"drivers"`
+	LogLevel string         `yaml:"log_level"`
+	Drivers  []DriverConfig `yaml:"drivers"`
+}
+
+type DriverConfig struct {
+	Type       string            `yaml:"type"`
+	Attributes map[string]string `yaml:"attributes,omitempty"`
 }
 
 func LoadConfg(filePath string) (*Config, error) {

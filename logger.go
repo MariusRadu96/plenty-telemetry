@@ -7,6 +7,7 @@ import (
 	"plentytelemetry/internal/domain"
 	"plentytelemetry/internal/drivers/cli"
 	"plentytelemetry/internal/drivers/file"
+	"plentytelemetry/internal/drivers/http"
 	"strings"
 	"sync"
 	"time"
@@ -48,15 +49,22 @@ func initDrivers(conf *config.Config) []Driver {
 	drivers := make([]Driver, 0)
 	for _, driver := range conf.Drivers {
 		switch driver.Type {
+		case "cli":
+			drivers = append(drivers, cli.NewCLIDriver())
 		case "file":
-			fileDriver, err := file.NewFileDriver(driver.FilePath)
+			fileDriver, err := file.NewFileDriver(driver.Attributes)
 			if err != nil {
 				log.Panic("err initiating file driver:", err)
 			}
 
 			drivers = append(drivers, fileDriver)
-		case "cli":
-			drivers = append(drivers, cli.NewCLIDriver())
+		case "http":
+			httpDriver, err := http.NewHTTPDriver(driver.Attributes)
+			if err != nil {
+				log.Panic("err initiating http driver:", err)
+			}
+
+			drivers = append(drivers, httpDriver)
 		}
 
 		// Open to adding new drivers by adding new casses
